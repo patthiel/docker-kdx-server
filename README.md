@@ -1,6 +1,7 @@
 <p align="center">
   <img width="128" height="128" aria-label="Haxial KDX Server" src="https://i.imgur.com/CSM6OU4.png">
 </p>
+<h1 align="center">Docker Haxial KDX Server</h1>
 
 ## About
 
