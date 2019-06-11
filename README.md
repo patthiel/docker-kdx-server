@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="128" height="128" aria-label="Haxial KDX Server" src="https://i.imgur.com/CSM6OU4.png">
+</p>
+
 ## About
 
 Haxial KDX was a popular BBS style client/server that was used and loved by many back in the early 2000's. This project attempts to keep this software running on newer machines via Docker + Ubuntu.
