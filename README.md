@@ -19,6 +19,6 @@ You can find the docker repository [here](https://hub.docker.com/r/patthiel/kdx-
 4. Run Container: `docker run -td --name docker-kdx-server -p 10700:10700/tcp --restart unless-stopped docker-kdx-server`
 5. If you already have a kdx server and want to migrate your files over, you can do so by mounting the files to a docker volume. Like so:
     ```bash
-    docker run -td --name docker-kdx-server -p 10700:10700/tcp --restart unless-stopped -v /local/config/path:/root/KDXServer1620-Lnx docker-kdx-server
+    docker run -td --name docker-kdx-server -p 10700:10700/tcp --restart unless-stopped -v /local/KDXServer/path:/app docker-kdx-server
     ```
 6. Also, if you use an alternative port or a specific port for file transfers, you will want to add the additional ports in the `docker run` command. These instructions assume you are only running on the default port 10700.
