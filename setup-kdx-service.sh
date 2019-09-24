@@ -1,7 +1,7 @@
 #!/bin/bash
 
-wget https://preterhuman.net/download/KDXServer1620-Lnx.zip
+wget $KDX_SERVER_DOWNLOAD_URL
 
-unzip ./KDXServer1620-Lnx.zip 2>&1 > /dev/null
+unzip -jq /app/KDXServer1620-Lnx.zip -d /app 2>&1 > /dev/null
 
-chmod +x ./KDXServer1620-Lnx/KDXServer.lexe
+chmod +x /app/KDXServer.lexe
