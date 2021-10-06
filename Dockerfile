@@ -1,14 +1,13 @@
-FROM ubuntu:14.04
+FROM ubuntu:20.04
 MAINTAINER Patrick Thiel "patthiel@gmail.com"
+
+ENV TZ=America/New_York
 
 # Install
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
   dpkg --add-architecture i386 && \
   apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -yq build-essential && \
-  apt-get install -yq software-properties-common && \
   apt-get install -yq libstdc++5:i386 unzip wget && \
   rm -rf /var/lib/apt/lists/*
 
