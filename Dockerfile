@@ -6,15 +6,22 @@ ENV HOME /root
 
 # 1. Setup Multi-Arch and Fix Repository Routing for ARM64/i386
 RUN dpkg --add-architecture i386 && \
-    echo "Types: deb\nURIs: http://ports.ubuntu.com/ubuntu-ports/\nSuites: noble noble-updates noble-backports noble-security\nComponents: main universe restricted multiverse\nArchitectures: arm64" > /etc/apt/sources.list.d/ubuntu.sources && \
+    if [ "$(dpkg --print-architecture)" = "arm64" ]; then \
+        echo "Types: deb\nURIs: http://ports.ubuntu.com/ubuntu-ports/\nSuites: noble noble-updates noble-backports noble-security\nComponents: main universe restricted multiverse\nArchitectures: arm64" > /etc/apt/sources.list.d/ubuntu.sources; \
+    fi && \
     echo "Types: deb\nURIs: http://archive.ubuntu.com/ubuntu/\nSuites: noble noble-updates noble-backports\nComponents: main universe restricted multiverse\nArchitectures: i386" > /etc/apt/sources.list.d/i386.sources && \
     echo "Types: deb\nURIs: http://security.ubuntu.com/ubuntu/\nSuites: noble-security\nComponents: main universe restricted multiverse\nArchitectures: i386" >> /etc/apt/sources.list.d/i386.sources && \
     apt-get update && \
-    apt-get install -yq libstdc++6:i386 unzip wget ca-certificates && \
-    wget https://security.ubuntu.com/ubuntu/ubuntu/pool/universe/g/gcc-3.3/libstdc++5_3.3.6-30ubuntu2_i386.deb && \
-    dpkg -i libstdc++5_3.3.6-30ubuntu2_i386.deb && \
-    rm libstdc++5_3.3.6-30ubuntu2_i386.deb && \
-    # 4. Cleanup
+    apt-get install -yq \
+        libstdc++6:i386 \
+        unzip wget ca-certificates && \
+    if [ "$(dpkg --print-architecture)" = "arm64" ]; then \
+        wget http://archive.ubuntu.com/ubuntu/pool/universe/g/gcc-3.3/libstdc++5_3.3.6-30ubuntu2_i386.deb && \
+        dpkg -i --force-architecture libstdc++5_3.3.6-30ubuntu2_i386.deb && \
+        rm libstdc++5_3.3.6-30ubuntu2_i386.deb; \
+    else \
+        apt-get install -yq libstdc++5:i386; \
+    fi && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
